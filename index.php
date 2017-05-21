@@ -1,6 +1,3 @@
 <?php
-echo"
-This is a webpage example
-
-";
+echo"This is a Web page example";
 
