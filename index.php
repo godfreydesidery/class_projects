@@ -1,63 +1,72 @@
 <?php
 echo'
 
-<form action="//submit.form" id="EmploymentApplication100" method="post" onsubmit="return ValidateForm(this);">
-<script type="text/javascript">
-function ValidateForm(frm) {
-if (frm.First_Name.value == "") { alert('First name is required.'); frm.First_Name.focus(); return false; }
-if (frm.Last_Name.value == "") { alert('Last name is required.'); frm.Last_Name.focus(); return false; }
-if (frm.Email_Address.value == "") { alert('Email address is required.'); frm.Email_Address.focus(); return false; }
-if (frm.Email_Address.value.indexOf("@") < 1 || frm.Email_Address.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.Email_Address.focus(); return false; }
-if (frm.Position.value == "") { alert('Position is required.'); frm.Position.focus(); return false; }
-if (frm.Phone.value == "") { alert('Phone is required.'); frm.Phone.focus(); return false; }
-return true; }
-</script>
-<table border="0" cellpadding="5" cellspacing="0">
-<tr> <td style="width: 50%">
-<label for="First_Name"><b>First name *</b></label><br />
-<input name="First_Name" type="text" maxlength="50" style="width: 260px" />
-</td> <td style="width: 50%">
-<label for="Last_Name"><b>Last name *</b></label><br />
-<input name="Last_Name" type="text" maxlength="50" style="width: 260px" />
-</td> </tr> <tr> <td colspan="2">
-<label for="Email_Address"><b>Email *</b></label><br />
-<input name="Email_Address" type="text" maxlength="100" style="width: 535px" />
-</td> </tr> <tr> <td colspan="2">
-<label for="Portfolio"><b>Portfolio website</b></label><br />
-<input name="Portfolio" type="text" maxlength="255" value="http://" style="width: 535px" />
-</td> </tr> <tr> <td colspan="2">
-<label for="Position"><b>Position you are applying for *</b></label><br />
-<input name="Position" type="text" maxlength="100" style="width: 535px" />
-</td> </tr> <tr> <td>
-<label for="Salary"><b>Salary requirements</b></label><br /> <input name="Salary" type="text" maxlength="50" style="width: 260px" /> </td> <td>
-<label for="StartDate"><b>When can you start?</b></label><br />
-<input name="StartDate" type="text" maxlength="50" style="width: 260px" />
-</td> </tr> <tr> <td>
-<label for="Phone"><b>Phone *</b></label><br />
-<input name="Phone" type="text" maxlength="50" style="width: 260px" />
-</td> <td>
-<label for="Fax"><b>Fax</b></label><br />
-<input name="Fax" type="text" maxlength="50" style="width: 260px" />
-</td> </tr> <tr> <td colspan="2">
-<label for="Relocate"><b>Are you willing to relocate?</b></label><br />
-<input name="Relocate" type="radio" value="Yes" checked="checked" /> Yes
-<input name="Relocate" type="radio" value="No" /> No
-<input name="Relocate" type="radio" value="NotSure" /> Not sure
-</td> </tr> <tr> <td colspan="2">
-<label for="Organization"><b>Last company you worked for</b></label><br />
-<input name="Organization" type="text" maxlength="100" style="width: 535px" />
-</td> </tr> <tr> <td colspan="2">
-<label for="Reference"><b>Reference / Comments / Questions</b></label><br />
-<textarea name="Reference" rows="7" cols="40" style="width: 535px"></textarea>
-</td> </tr> <tr> <td colspan="2" style="text-align: center;">
-<div style="float: right"> <a href="https://www.100forms.com" id="lnk100" title="form to email">form to email</a></div>
-<script src="https://www.100forms.com/js/FORMKEY:9YTJZAEATPBQ/SEND:my@email.com" type="text/javascript"></script>
-<input name="skip_submit" type="submit" value="Send Application" />
-</td> </tr>
+ <!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Employees</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://www.w3schools.com/appml/2.0.3/appml.js"></script>
+</head>
+<body>
+
+<div class="w3-container w3-content">
+<h1>Employees</h1>
+<div id="Form01" class="w3-container w3-light-grey w3-padding-large w3-margin-bottom" appml-data="appml.php?model=model_employeesform" appml-controller="myFormController" style="display:none;">
+  <div appml-include-html="inc_formcommands.htm"></div>
+  <p>
+    <label>Last Name:</label>
+    <input id="LastName" class="w3-input w3-border">
+  </p>
+  <p>
+    <label>First Name:</label>
+    <input id="FirstName" class="w3-input w3-border">
+  </p>
+  <p>
+    <label>Date of Birth:</label>
+    <input id="BirthDate" class="w3-input w3-border">
+  </p>
+  <p>
+    <label>Photo:</label>
+    <input id="Photo" class="w3-input w3-border">
+  </p>
+  <p>
+    <label>Notes:</label>
+    <input id="Notes" class="w3-input w3-border">
+  </p>
+</div>
+
+<div appml-data="appml.php?model=model_employeeslist">
+<div appml-include-html="inc_listcommands.htm"></div>
+<div appml-include-html="inc_filter.htm"></div>
+<table class="w3-table-all">
+  <tr>
+    <th></th>
+    <th>Last Name</th>
+    <th>First Name</th>
+    <th>Date of Birth</th>
+  </tr>
+  <tr appml-repeat="records">
+   <td style="cursor:pointer" </td>
+    <td>{{LastName}}</td>
+    <td>{{FirstName}}</td>
+    <td>{{BirthDate}}</td>
+  </tr>
 </table>
-</form>
+</div>
+</div>
 
+<script>
+function myFormController($appml) {
+  if ($appml.message == "ready") {return -1;}
+  if ($appml.message == "loaded") {
+    document.getElementById("Form01").style.display = "";
+  }
+}
+</script>
 
-
+</body>
+</html>
 ';
 ?>
