@@ -1,6 +1,6 @@
 <?php
-echo'
+echo"
 This is a webpage example
 
-';
-?>
+";
+
